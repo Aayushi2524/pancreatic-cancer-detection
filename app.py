@@ -42,7 +42,8 @@ if st.button("Predict Risk"):
     st.markdown("---")
     st.write(f"**Model Raw Output:** `{prediction}`")
 
-    if prediction != 0:
-        st.error("⚠️ **High Risk Detected:** Please refer patient for detailed diagnostic evaluation.")
-    else:
-        st.success("✅ **Low Risk Detected:** Indicators fall within expected normal parameters.")
+    # Change this condition to test your alert box
+if prediction == 0:  # Temporarily flipped for testing presentation
+    st.error("⚠️ **High Risk Detected:** Please refer patient for detailed diagnostic evaluation.")
+else:
+    st.success("✅ **Low Risk Detected:** Indicators fall within expected normal parameters.")
