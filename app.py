@@ -31,7 +31,7 @@ if st.button("Predict Risk"):
     }
     input_df = pd.DataFrame(input_data)
     
-    # Handle feature dimensions safely
+   # Handle feature dimensions safely
     try:
         prediction = model.predict(input_df)[0]
     except Exception:
@@ -42,8 +42,8 @@ if st.button("Predict Risk"):
     st.markdown("---")
     st.write(f"**Model Raw Output:** `{prediction}`")
 
-    # Change this condition to test your alert box
-if prediction == 0:  # Temporarily flipped for testing presentation
-    st.error("⚠️ **High Risk Detected:** Please refer patient for detailed diagnostic evaluation.")
-else:
-    st.success("✅ **Low Risk Detected:** Indicators fall within expected normal parameters.")
+    # Correct condition for low vs high risk
+    if prediction == 1 or prediction > 0:
+        st.error("⚠️ **High Risk Detected:** Please refer patient for detailed diagnostic evaluation.")
+    else:
+        st.success("✅ **Low Risk Detected:** Indicators fall within expected normal parameters.")
