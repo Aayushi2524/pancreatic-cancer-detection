@@ -37,16 +37,17 @@ if st.button("Predict Risk"):
             elif 'reg1b' in col_lower:
                 input_df[col] = reg1b
                 
+       try:
         prediction = model.predict(input_df)[0]
-else:
-    features = np.zeros((1, 37))
-    features[0, :5] = [age, plasma_ca19, creatinine, lyve1, reg1b]
-    prediction = model.predict(features)[0]
+    except Exception:
+        features = np.zeros((1, 37))
+        features[0, :5] = [age, plasma_ca19, creatinine, lyve1, reg1b]
+        prediction = model.predict(features)[0]
 
-st.markdown("---")
-st.write(f"**Model Raw Output:** `{prediction}`")
+    st.markdown("---")
+    st.write(f"**Model Raw Output:** `{prediction}`")
 
-if prediction != 0:
-    st.error("⚠️ **High Risk Detected:** Please refer patient for detailed diagnostic evaluation.")
-else:
-    st.success("✅ **Low Risk Detected:** Indicators fall within expected normal parameters.")
+    if prediction != 0:
+        st.error("⚠️ **High Risk Detected:** Please refer patient for detailed diagnostic evaluation.")
+    else:
+        st.success("✅ **Low Risk Detected:** Indicators fall within expected normal parameters.")
