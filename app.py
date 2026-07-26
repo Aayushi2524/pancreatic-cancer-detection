@@ -39,11 +39,13 @@ if st.button("Predict Risk"):
         features[0, :5] = [age, plasma_ca19, creatinine, lyve1, reg1b]
         prediction = model.predict(features)[0]
 
+    # Permanent fix: Use clinical threshold for CA19-9 alongside model output
+    is_high_risk = (prediction != 0) or (plasma_ca19 > 37.0)
+
     st.markdown("---")
     st.write(f"**Model Raw Output:** `{prediction}`")
 
-    # Correct condition for low vs high risk
-    if prediction == 1 or prediction > 0:
+    if is_high_risk:
         st.error("⚠️ **High Risk Detected:** Please refer patient for detailed diagnostic evaluation.")
     else:
         st.success("✅ **Low Risk Detected:** Indicators fall within expected normal parameters.")
